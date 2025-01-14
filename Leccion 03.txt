@@ -186,3 +186,28 @@ OK
 (integer) 7499
 127.0.0.1:6379> pttl nombre3
 (integer) 4653
+
+
+############# Leccion 15
+comando persist,  para quitar la expiracion.
+
+1 = the timeout is removed
+0 = key no esxiste o no tiene timeout asociado.
+
+
+127.0.0.1:6379> set name1 lisa ex 120
+OK
+127.0.0.1:6379> ttl name1
+(integer) 113
+127.0.0.1:6379> ttl name1
+(integer) 110
+127.0.0.1:6379> persist name1
+(integer) 1
+
+el menos uno significa que no hay exporacion.
+127.0.0.1:6379> ttl name1
+(integer) -1
+
+persist una key que no existe.
+127.0.0.1:6379> persist name2
+(integer) 0
