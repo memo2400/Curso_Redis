@@ -1,0 +1,188 @@
+Leccion 03
+
+isntalacion
+
+
+https://learn.microsoft.com/es-es/windows/wsl/install
+
+comandos de isntalacion, no jalo
+
+wsl --install
+
+
+https://learn.microsoft.com/es-es/windows/wsl/install-manual
+
+si jala
+dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
+
+
+Paso 3: Habilitación de la característica Máquina virtual
+habilitar el wsl2
+dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
+
+
+Paso 4: Descarga del paquete de actualización del kernel de Linux
+
+Paso 5: Definición de WSL 2 como versión predeterminada
+$ wsl --set-default-version 2
+
+Paso 6: Instalación de la distribución de Linux que quiera
+
+    Abre Microsoft Store y selecciona tu distribución de Linux favorita.
+    Use la 22.04 LTS
+
+    La primera vez que inicies una distribución de Linux recién instalada, se abrirá una ventana de la consola y se te pedirá que esperes un minuto o dos para que los archivos se descompriman y se almacenen en tu equipo. Todos los inicios posteriores deberían tardar menos de un segundo en completarse.
+
+    Tendrás que crear una cuenta de usuario y una contraseña para la nueva distribución de Linux.
+    hay que darle a l botno abrir.
+
+    van terminal lista 
+
+##########3
+
+instalar redis on windows
+https://redis.io/docs/latest/operate/oss_and_stack/install/install-redis/install-redis-on-windows/
+
+con estos comandos se instala.
+
+    sudo apt-get update
+    sudo apt-get install redis
+
+iniciar redis server
+
+    sudo service redis-server start
+
+conctarse a redis.    
+    redis-cli
+
+Testeamos la conexion
+    ping
+
+###################
+
+Leccion 04
+
+
+apagar
+$ shutdown save
+$ shutdown nosave
+
+
+$ redis server
+crea una instancia del server. y lo inicia
+
+########### leccion 05
+
+info es informacion massiva.
+
+01:21
+
+guardar algo en redis
+$ set nombre "Mark"set nombre "Mark"
+
+lectura 
+$ get nombre
+
+
+############3 leccion 09
+
+Delete keys
+
+usamos : responde un  1 cuando se borra.
+
+127.0.0.1:6379> $ del nombre
+(integer) 1
+
+ya se nos borro
+127.0.0.1:6379> get nombre
+(nil)
+
+podemos borrar, los key varios en una sola linea.
+127.0.0.1:6379> del nombre1 nombre2
+(integer) 2
+
+
+############# Lecion 11
+
+ver si existe la key
+
+$ exist nombre1
+
+
+127.0.0.1:6379> exists nombre1
+(integer) 1
+
+cuando no existe
+127.0.0.1:6379> exists nombre10
+(integer) 0
+
+############# Leccion 13
+definir expiracion de la key.
+
+
+EX seconds, PX milisegundos
+$ set nombre5 ex 10
+
+$ set nombre3 "gato3" ex 10
+$ set nombre3 gato3 ex 10
+$ set nombre3 gato3 px 100
+
+nos indica el tiempo restante
+Time to life el -2 significa que nuestra  key ya no existe en BD
+ttl nombre3
+
+    (integer) 3
+    127.0.0.1:6379> ttl nombre3
+    (integer) 3
+    127.0.0.1:6379> ttl nombre3
+    (integer) 2
+    127.0.0.1:6379> ttl nombre3
+    (integer) 0
+    127.0.0.1:6379> ttl nombre3
+    (integer) -2
+    127.0.0.1:6379> ttl nombre3
+    (integer) -2
+
+
+modificar la expiracion en segundos.
+expire nombre3 10
+
+    127.0.0.1:6379> ttl nombre3
+    (integer) 27
+    127.0.0.1:6379> expire nombre3 60
+    (integer) 1
+    127.0.0.1:6379> ttl nombre3
+    (integer) 54
+
+si establecemos la variable en milisegundos.
+podemos usar el comando pttl.
+
+
+    127.0.0.1:6379> set nombre3 gato3 px 30000
+    OK
+    127.0.0.1:6379> ttl nombre3
+    (integer) 27
+    127.0.0.1:6379> ttl nombre3
+    (integer) 25
+    127.0.0.1:6379> pttl nombre3
+    (integer) 13049
+    127.0.0.1:6379> pttl nombre3
+    (integer) 7891
+
+cambiar expiracion en milisegundos.
+pexpire
+
+127.0.0.1:6379> set nombre3 gato3 px 300000
+OK
+127.0.0.1:6379> ttl nombre3
+(integer) 287
+127.0.0.1:6379> pttl nombre3
+(integer) 281218
+127.0.0.1:6379> pttl nombre3
+(integer) 274969
+127.0.0.1:6379> pexpire nombre3 10000
+(integer) 1
+127.0.0.1:6379> pttl nombre3
+(integer) 7499
+127.0.0.1:6379> pttl nombre3
+(integer) 4653
