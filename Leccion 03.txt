@@ -29,6 +29,10 @@ $ wsl.exe --update
 Paso 5: Definición de WSL 2 como versión predeterminada
 $ wsl --set-default-version 2
 
+    Diferencia entre versiones 1 y 2
+    https://learn.microsoft.com/es-mx/windows/wsl/compare-versions
+
+
 Paso 6: Instalación de la distribución de Linux que quiera
 
     Abre Microsoft Store y selecciona tu distribución de Linux favorita.
