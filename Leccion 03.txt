@@ -22,6 +22,9 @@ dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /nores
 
 
 Paso 4: Descarga del paquete de actualización del kernel de Linux
+$ use wsl.exe --install 
+o 
+$ wsl.exe --update
 
 Paso 5: Definición de WSL 2 como versión predeterminada
 $ wsl --set-default-version 2
